@@ -1,16 +1,20 @@
-const { Schema } = require('mongoose')
 
 require('dotenv').config({path: './environment-variables/.env'})
 
+const { Schema } = require('mongoose')
+
 const express = require('express')
-const server = express()
+const cors = require('cors')
 
 const database = require(__dirname + '/database.js')
 
-const PORT = process.env.PORT || 3001
+const server = express()
+server.use(cors())
+
+const PORT = process.env.APIPORT || 3001
 
 server.get('/api', async (req, res)=>{
-    res.send(await database.all())
+    res.json(await database.all())
 })
 
 server.listen(PORT, () => {
