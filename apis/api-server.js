@@ -1,8 +1,6 @@
 
 require('dotenv').config({path: './environment-variables/.env'})
 
-const { Schema } = require('mongoose')
-
 const express = require('express')
 const cors = require('cors')
 
@@ -12,6 +10,15 @@ const server = express()
 server.use(cors())
 
 const PORT = process.env.APIPORT || 3001
+
+server.get('/api/thumbnails', async (req, res) => {
+    const protagonist = req.query.of || null
+
+    if(['baby', 'mom', 'dad'].indexOf(protagonist) >= 0)
+        res.json(await database.thumbnails(protagonist))
+    else
+        res.json(null)
+})
 
 server.get('/api', async (req, res)=>{
     res.json(await database.all())
