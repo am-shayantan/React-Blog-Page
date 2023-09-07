@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { PageNotFound } from './PageNotFound'
+import PageNotFound from './PageNotFound'
+import Navbar from './Navbar'
 
 
 function BlogIndex() {
@@ -18,15 +19,20 @@ function BlogIndex() {
         setThumbnailData(data)
     }
 
-    if(['baby', 'mom', 'dad'].indexOf(protagonist) >= 0){
-        getThumbnails(protagonist)
+    useEffect(() => {
 
+        getThumbnails(protagonist)
+    }, [])
+
+    if(thumbnailData){
         return (
             <>
+                <Navbar />
                 {
                     thumbnailData.map((thumbnail, i) => (
                         <div key={thumbnail._id}>
-                            <h1>{thumbnail.thumbnailText}</h1>
+                            <hr />
+                            <a href='#'><h1>{thumbnail.thumbnailText}</h1></a>
                             <img src={`images/${thumbnail.thumbnailImg}`}></img>
                         </div>
                     ))
@@ -35,11 +41,7 @@ function BlogIndex() {
         )
     }
     else{
-        return (
-            <>
-                <PageNotFound />
-            </>
-        )
+        return (<PageNotFound />)
     }
 }
 

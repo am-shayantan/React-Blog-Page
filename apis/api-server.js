@@ -14,14 +14,20 @@ const PORT = process.env.APIPORT || 3001
 server.get('/api/thumbnails', async (req, res) => {
     const protagonist = req.query.of || null
 
-    if(['baby', 'mom', 'dad'].indexOf(protagonist) >= 0)
-        res.json(await database.thumbnails(protagonist))
-    else
+    if(['baby', 'mom', 'dad'].indexOf(protagonist) >= 0){
+        const result = await database.thumbnails(protagonist)
+        console.log(result)
+        res.json(result)
+    }
+    else{
         res.json(null)
+    }
 })
 
 server.get('/api', async (req, res)=>{
-    res.json(await database.all())
+    const result = await database.all()
+    console.log(result)
+    res.json(result)
 })
 
 server.listen(PORT, () => {
