@@ -24,6 +24,19 @@ server.get('/api/thumbnails', async (req, res) => {
     }
 })
 
+server.get('/api/blog', async (req, res) => {
+    const _id = req.query._id || null
+
+    if(_id){
+        const result = await database.blog(_id)
+        console.log(result)
+        res.json(result)
+    }
+    else{
+        res.json(null)
+    }
+})
+
 server.get('/api', async (req, res)=>{
     const result = await database.all()
     console.log(result)

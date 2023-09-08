@@ -19,3 +19,7 @@ module.exports.thumbnails = async(protagonist) => {
     else
         return null
 }
+
+module.exports.blog = async(_id) => {
+    return await Blogs.find({ _id : _id})
+}

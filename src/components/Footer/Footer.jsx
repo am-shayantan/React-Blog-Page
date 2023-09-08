@@ -11,7 +11,7 @@ import {
 export default function App() {
     return (
         <MDBFooter className='text-center text-white' style={{ backgroundColor: '#f1f1f1' }}>
-            <MDBContainer className='pt-4'>
+            {/* <MDBContainer className='pt-4'>
                 <section className='mb-4'>
                     <MDBBtn
                         rippleColor="dark"
@@ -85,7 +85,7 @@ export default function App() {
                         <MDBIcon fab className='fa-github' />
                     </MDBBtn>
                 </section>
-            </MDBContainer>
+            </MDBContainer> */}
 
             <div className='text-center text-dark p-3' style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}>
                 © 2020 Copyright:

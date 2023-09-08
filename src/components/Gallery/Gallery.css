@@ -2,10 +2,14 @@ img {
     max-width: 100%;
 }
 
-.gallery_box li {
+.gallery_box .li {
     width: 33.333333%;
     max-width: 100%;
-    display: inline-block;
+    /* display: inline-block;
+                                inline-block is ignored due to the float. 
+                                If 'float' has a value other than 'none', the box is 
+                                floated and 'display' is treated as 
+                                'block'css(propertyIgnoredDueToDisplay) */
     float: left;
     text-align: center;
     overflow: hidden;
@@ -18,7 +22,11 @@ img {
     display: flow-root;
 }
 
-.gallery_box li:hover img {
+ul.gallery_box{
+    border-bottom: 0px;
+}
+
+.gallery_box .li:hover img {
     -moz-transform: scale(1.1);
     -webkit-transform: scale(1.1);
     -ms-transform: scale(1.1);
@@ -26,30 +34,30 @@ img {
     transform: scale(1.1);
 }
 
-.gallery_box li img {
+.gallery_box .li img {
     -webkit-transition: transform 0.5s ease;
     -o-transition: transform 0.5s ease;
     transition: transform 0.5s ease;
 }
 
-/* .gallery_box li:nth-child(even) {
+/* .gallery_box .li:nth-child(even) {
     height: 300px;
 }
 
-.gallery_box li:nth-child(odd) {
+.gallery_box .li:nth-child(odd) {
     height: 300px;
 } */
 
-.gallery_box li:nth-child(4n+1) .box_data {
+.gallery_box .li:nth-child(4n+1) .box_data {
     background:#99c8ec33
 }
-.gallery_box li:nth-child(4n+2) .box_data {
+.gallery_box .li:nth-child(4n+2) .box_data {
     background:#e5ea9333
 }
-.gallery_box li:nth-child(4n+3) .box_data {
+.gallery_box .li:nth-child(4n+3) .box_data {
     background:#e1c8ea33
 }
-.gallery_box li:nth-child(4n) .box_data {
+.gallery_box .li:nth-child(4n) .box_data {
     background: #c0dfd033
 }
 
@@ -71,15 +79,27 @@ img {
     font-size: 24px;
 }
 
-.gallery_box li:nth-child(4n+1):hover .box_data {
+.gallery_box .li:nth-child(4n+1):hover .box_data {
     background: #99c8ec99
 }
-.gallery_box li:nth-child(4n+2):hover .box_data {
+.gallery_box .li:nth-child(4n+2):hover .box_data {
     background: #e5ea9399
 }
-.gallery_box li:nth-child(4n+3):hover .box_data {
+.gallery_box .li:nth-child(4n+3):hover .box_data {
     background: #e1c8ea99
 }
-.gallery_box li:nth-child(4n):hover .box_data {
+.gallery_box .li:nth-child(4n):hover .box_data {
     background: #c0dfd099
+}
+
+@media all and (max-width: 992px){
+    .gallery_box .li {
+        width: 50%;
+    }
+}
+
+@media all and (max-width: 768px){
+    .gallery_box .li {
+        width: 100%;
+    }
 }

@@ -1,0 +1,53 @@
+[33mcommit 0df39e8335eca3fd992922c8822d5a80159631aa[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: shayantan <shayantankabiraj@gmail.com>
+Date:   Fri Sep 8 17:47:08 2023 +0530
+
+    New Header, Navbar, Gallery and Footer. Improvement Needed.
+
+[33mcommit fd2131521c2fdd12bf92b4d9111ba1a6ff512532[m
+Author: shayantan <shayantankabiraj@gmail.com>
+Date:   Thu Sep 7 14:23:38 2023 +0530
+
+    React was making infinite fetch requests, Solved using useEffect hook
+
+[33mcommit 3855e546d9d66950b3eabe6c2af9c9602038e4ef[m
+Author: shayantan <shayantankabiraj@gmail.com>
+Date:   Thu Sep 7 00:16:26 2023 +0530
+
+    Navbar fully functional but page very ugly
+
+[33mcommit 64ed221690d2241045621193b48c263248a3398d[m
+Author: shayantan <shayantankabiraj@gmail.com>
+Date:   Wed Sep 6 02:27:58 2023 +0530
+
+    Solve Proxy Error
+
+[33mcommit 56e4b27d6cf45ff458e38aff756826f84096c4ea[m
+Author: shayantan <shayantankabiraj@gmail.com>
+Date:   Wed Sep 6 02:18:16 2023 +0530
+
+    React Can Fetch Data From MongoDB, Checkpoint before deleting package-lock.json and node modules and doing npm i to solve proxy error.
+
+[33mcommit 3ff7c5e16e6f2aad79bd8e540871bda0670d4543[m
+Author: shayantan <shayantankabiraj@gmail.com>
+Date:   Tue Sep 5 15:43:16 2023 +0530
+
+    New Page Loader
+
+[33mcommit 7fd23039626a63d4b5d0d02bda3e5cd665c193d2[m
+Author: shayantan <shayantankabiraj@gmail.com>
+Date:   Tue Sep 5 00:38:32 2023 +0530
+
+    Add React App and API server
+
+[33mcommit 337d8a0e5f9d067a7d60b4d15bad1f519a91982a[m
+Author: shayantan <shayantankabiraj@gmail.com>
+Date:   Sun Sep 3 15:42:22 2023 +0530
+
+    Add gitignore
+
+[33mcommit 2141d0edd5a66c927ce40e0826894c52b0ec3c8f[m
+Author: shayantan <shayantankabiraj@gmail.com>
+Date:   Sun Sep 3 15:30:46 2023 +0530
+
+    first commit

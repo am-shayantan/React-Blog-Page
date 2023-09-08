@@ -6,16 +6,17 @@ import Tile from './Tile';
 
 export default function Gallery(props) {
     return (
-        <div>
-            <ul className="gallery_box">
+        <>
+            <div className="gallery_box">
                 {props.LPC.map(content => 
                     <Tile
                         key={content._id}
+                        url={`/blog?_id=${content._id}`}
                         imgURL={content.thumbnailImg}
                         message={content.thumbnailText}
                     />
                 )}
-            </ul>
-        </div>
+            </div>
+        </>
     )
 }
