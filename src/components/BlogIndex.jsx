@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
-import PageNotFound from './PageNotFound'
+import Header from './Header/Header'
 import Navbar from './Navbar'
-
+import PageNotFound from './PageNotFound'
+import Gallery from './Gallery/Gallery'
+import Footer from './Footer/Footer'
 
 function BlogIndex() {
 
@@ -22,21 +24,15 @@ function BlogIndex() {
     useEffect(() => {
 
         getThumbnails(protagonist)
-    }, [])
+    }, [protagonist])
 
     if(thumbnailData){
         return (
             <>
+                <Header protagonist={protagonist}/>
                 <Navbar />
-                {
-                    thumbnailData.map((thumbnail, i) => (
-                        <div key={thumbnail._id}>
-                            <hr />
-                            <a href='#'><h1>{thumbnail.thumbnailText}</h1></a>
-                            <img src={`images/${thumbnail.thumbnailImg}`}></img>
-                        </div>
-                    ))
-                }
+                <Gallery LPC={thumbnailData} />
+                <Footer />
             </>
         )
     }

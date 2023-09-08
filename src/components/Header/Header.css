@@ -1,0 +1,7 @@
+.bg-cover {
+    background-size: cover !important;
+}
+
+#header {
+    min-height: 300px;
+}
