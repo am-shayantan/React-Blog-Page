@@ -20,7 +20,7 @@ function Blog() {
             setBlog(null)
         }
         else{
-            setBlog(data[0])
+            setBlog(data)
         }
     }
 
