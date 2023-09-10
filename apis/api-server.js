@@ -1,5 +1,5 @@
 
-require('dotenv').config({path: './environment-variables/.env'})
+require('dotenv').config({__dirname: '/environment-variables/.env'})
 
 const express = require('express')
 const cors = require('cors')
@@ -16,7 +16,7 @@ server.get('/api/thumbnails', async (req, res) => {
 
     if(['baby', 'mom', 'dad'].indexOf(protagonist) >= 0){
         const result = await database.thumbnails(protagonist)
-        console.log(result)
+        // console.log(result)
         res.json(result)
     }
     else{
@@ -29,7 +29,7 @@ server.get('/api/blog', async (req, res) => {
 
     if(_id){
         const result = await database.blog(_id)
-        console.log(result)
+        // console.log(result)
         res.json(result)
     }
     else{
@@ -39,7 +39,7 @@ server.get('/api/blog', async (req, res) => {
 
 server.get('/api', async (req, res)=>{
     const result = await database.all()
-    console.log(result)
+    // console.log(result)
     res.json(result)
 })
 

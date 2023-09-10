@@ -37,7 +37,13 @@ function Blog() {
                 <img src={`/images/${blog.thumbnailImg}`} style={{height: 300, width: 300}} />
                 
                 <div>
-                    {/* error in rendering content */}
+                    {blog.content?.map((each, i) => (
+                        <>
+                            {each.header && (<h1 key={i}>{each.header}</h1>)}
+                            {each.image && (<img key={i} src={`/images/${each.image}`} />)}
+                            {each.paragraph && (<p key={i}>{each.paragraph}</p>)}
+                        </>
+                    ))}
                 </div>
                 <Footer />
             </>
