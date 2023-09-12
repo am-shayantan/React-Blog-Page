@@ -5,11 +5,7 @@ img {
 .gallery_box .li {
     width: 33.333333%;
     max-width: 100%;
-    /* display: inline-block;
-                                inline-block is ignored due to the float. 
-                                If 'float' has a value other than 'none', the box is 
-                                floated and 'display' is treated as 
-                                'block'css(propertyIgnoredDueToDisplay) */
+    /* display: inline-block; */
     float: left;
     text-align: center;
     overflow: hidden;
