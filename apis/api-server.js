@@ -20,6 +20,22 @@ server.set('views', path.join(__dirname, 'views'))
 
 const PORT = process.env.APIPORT || 3001
 
+function queryStringGenerator(obj){
+    const keys = Object.keys(obj)
+    var query = '?'
+
+    keys.forEach(key => {
+        if(query === '?'){
+            query = `${query}${key}=${obj[key]}`
+        }
+        else{
+            query = `${query}&${key}=${obj[key]}`
+        }
+    })
+    
+    return query
+}
+
 server.get('/api/thumbnails', async (req, res) => {
     const protagonist = req.query.of || null
 
@@ -55,7 +71,7 @@ server.get('/api', async (req, res)=>{
 server.get('/new', async ( req, res ) => {
     if(['baby', 'mom', 'dad'].includes(req.query.protagonist)){
         res.render('password', {
-            query: `action=new&protagonist=${req.query.protagonist}`, 
+            query: `?action=new&protagonist=${req.query.protagonist}`, 
             warning: false
         })
     }
@@ -67,7 +83,7 @@ server.get('/new', async ( req, res ) => {
 server.get('/edit', async (req, res) => {
     if(await database.idExists(req.query._id)){
         res.render('password', {
-            query: `action=edit`, 
+            query: `?action=edit&_id=${req.query._id}`,
             warning: false
         })
     }
@@ -79,7 +95,7 @@ server.get('/edit', async (req, res) => {
 server.get('/delete', async ( req, res ) => {
     if(await database.idExists(req.query._id)){
         res.render('password', {
-            query: `action=delete&_id=${req.query._id}`, 
+            query: `?action=delete&_id=${req.query._id}`,
             warning: false
         })
     }
@@ -115,7 +131,9 @@ server.post('/authenticate', async (req, res) => {
             res.send('done')
         }
         else if(req.query.action === 'edit'){
-
+            res.render('edit', {
+                query: `?_id=${req.query._id}`
+            })
         }
         else{
             res.redirect('*')
@@ -123,10 +141,14 @@ server.post('/authenticate', async (req, res) => {
     }
     else{
         res.render('password', {
-            query: `action=${req.query.action}&protagonist=${req.query.protagonist}`, 
+            query: queryStringGenerator(req.query),
             warning: true
         })
     }
+})
+
+server.post('/edit', (req, res) => {
+    res.send(`${req.query._id} is edited`)
 })
 
 server.all('*', (req, res) => {
