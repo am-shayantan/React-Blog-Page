@@ -8,14 +8,12 @@
 
 <br>
 
-<form action="/edit<%= query %>" method="POST" enctype="multipart/form-data" class="form-group">
+<form action="/edit<%= query %>" method="POST" enctype="multipart/form-data" class="form-group" id="content-form">
 
-    <input type="text" name="Something" id="">
+    <input type="text" id="thumbnailText" name="thumbnailText" value="<%= blog.thumbnailText %>" class="form-control" />
 
-    <input type="text" name="thumbnailText" value="<%= blog.thumbnailText %>" class="form-control" />
-
-    <input type='file' name="thumbnailImg" onchange="readURL(this);" class="form-control-file"/>
-    <img class="image-input img-thumbnail" id="thumbnailImg" src=<%=`images/${blog.thumbnailImg}`%> alt="your image" />
+    <input type='file' id="thumbnailImg" name="thumbnailImg" onchange="readURL(this);" class="form-control-file"/>
+    <img class="image-input img-thumbnail" id="thumbnailImg_" src=<%=`images/${blog.thumbnailImg}`%> alt="your image" />
 
     
     <div id="content" class="container"></div>
@@ -24,26 +22,20 @@
 
     <br><br><br>
     <button type="submit" value="cancel" class="btn btn-danger">Cancel</button>
-    <button type="submit" value="upload" class="btn btn-primary">Upload</button>
-    
-    <button>Submit</button>
+    <button type="button" value="upload" class="btn btn-primary" onclick="SubmitForm()">Upload</button>
 </form>
 
 <script>
-    function convertNameToId(name){
-        var result = name.replace('[', '_')
-        result = result.replace(']', '_')
-
-        return result
-    }
 
     function readURL(input) {
-        console.log(input.name)
         if (input.files && input.files[0]) {
             var reader = new FileReader();
 
             reader.onload = function (e) {
-                $(`#${convertNameToId(input.name)}`).attr('src', e.target.result);
+                //the input can detect it's unique preview by it's own Id
+                //the id of the preview field is it id of the input followed by an '_'
+                //eg, if the id of input is 'someId', then it's corresponding preview's id = 'someId_'
+                $(`#${input.id}_`).attr('src', e.target.result);
             };
 
             reader.readAsDataURL(input.files[0]);
@@ -51,28 +43,27 @@
     }
 
     var imageIdCount = 0
-    function getImageName(){
+    function getImageId(){
         return `image${imageIdCount++}`
     }
 
     var videoIdCount = 0
-    function getVideoName(){
-        return `video[${videoIdCount++}]`
+    function getVideoId(){
+        return `video${videoIdCount++}`
     }
 
     var headerNameIndex = 0
     function getHeaderName(){
-        return `header[${headerNameIndex ++ }]`
+        return `header${headerNameIndex ++ }`
     }
 
     var paragraphNameIndex = 0
     function getParagraphName(){
-        return `paragraph[${paragraphNameIndex++}]`
+        return `paragraph${paragraphNameIndex++}`
     }
 
     var proceed = false
     function addBlock(){
-        console.log(proceed)
         if(!proceed){
             proceed = confirm('Editing Will Lead To Deletion of Any of The Previous Content Uploaded. Do You Want To Proceed?')
         }
@@ -91,15 +82,17 @@
 
             const imageDiv = document.createElement('div')
             imageDiv.classList.add('float-left')
-                const imageName = getImageName()
                 const imageInput = document.createElement('input')
+                const imageId = getImageId()
+                imageInput.id = imageId
                 imageInput.type = 'file'
-                imageInput.name = imageName
+                imageInput.name =  imageId
+                imageInput.value = null
                 imageInput.classList.add('form-control-file')
                 imageInput.setAttribute('onchange', "readURL(this)")
                 const previewImage = document.createElement('img')
                 previewImage.classList.add('image-input', 'img-thumbnail')
-                previewImage.id = convertNameToId(imageName)
+                previewImage.id = imageId + '_'
                 previewImage.src= 'http://placehold.it/180'
                 previewImage.alt='your image'
                 imageDiv.appendChild(imageInput)
@@ -120,6 +113,17 @@
 
             document.getElementById('AddBlockButton').innerHTML = 'Add Another Block'
         }
+    }
+
+    function SubmitForm(){
+        const length = document.getElementsByClassName('content-block').length
+        const contentLength = document.createElement('input')
+        contentLength.name = 'contentLength'
+        contentLength.value = length
+
+        const Form = document.getElementById('content-form')
+        Form.appendChild(contentLength)
+        Form.submit()
     }
 </script>
 

@@ -62,6 +62,16 @@ module.exports.deleteBlog = async (_id) => {
     return await Blogs.deleteOne({ _id: _id })
 }
 
+module.exports.changeThumbnailText = async (_id, thumbnailText) => {
+    return await Blogs.updateOne({_id: _id}, {thumbnailText: thumbnailText})
+}
+module.exports.changeThumbnailImage = async (_id, thumbnailImg) => {
+    return await Blogs.updateOne({_id: _id}, {thumbnailImg: thumbnailImg})
+}
+module.exports.changeContent = async (_id, content) => {
+    return await Blogs.updateOne({_id: _id}, {content: content})
+}
+
 module.exports.checkPassword = async (password) => {
     const data = await Admin.findOne()
     const hash = data.password
