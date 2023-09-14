@@ -3,6 +3,7 @@ require('dotenv').config({__dirname: '/environment-variables/.env'})
 
 const express = require('express')
 const cors = require('cors')
+const fileUpload = require('express-fileupload')
 const bodyParser = require('body-parser')
 const path = require('path')
 const { deleteBlog } = require('./database')
@@ -12,6 +13,7 @@ const database = require(__dirname + '/database.js')
 const server = express()
 server.use(express.static('public'))
 server.use(cors())
+server.use(fileUpload())
 server.use(bodyParser.urlencoded({
     extended: true
 }))
@@ -115,6 +117,7 @@ server.post('/authenticate', async (req, res) => {
                 res.redirect('*')
             }
         }
+
         else if(req.query.action === 'delete'){
             const _id = req.query._id
             const blog = await database.blog(_id)
@@ -132,7 +135,8 @@ server.post('/authenticate', async (req, res) => {
         }
         else if(req.query.action === 'edit'){
             res.render('edit', {
-                query: `?_id=${req.query._id}`
+                query: `?_id=${req.query._id}`,
+                blog: await database.blog(req.query._id)
             })
         }
         else{
@@ -147,8 +151,10 @@ server.post('/authenticate', async (req, res) => {
     }
 })
 
-server.post('/edit', (req, res) => {
-    res.send(`${req.query._id} is edited`)
+server.post('/edit', async (req, res) => {
+    console.log(req.files)
+
+    res.send(`edited ${req.query._id}`)
 })
 
 server.all('*', (req, res) => {

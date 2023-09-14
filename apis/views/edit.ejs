@@ -1,11 +1,126 @@
 <%-include('./partials/top.ejs')-%>
 
-<form action="/edit<%= query %>" method="POST" enctype="multipart/form-data">
+<style>
+    .image-input {
+        max-width: 180px;
+    }
+</style>
 
-    <h1>Hi</h1>
+<br>
 
+<form action="/edit<%= query %>" method="POST" enctype="multipart/form-data" class="form-group">
+
+    <input type="text" name="Something" id="">
+
+    <input type="text" name="thumbnailText" value="<%= blog.thumbnailText %>" class="form-control" />
+
+    <input type='file' name="thumbnailImg" onchange="readURL(this);" class="form-control-file"/>
+    <img class="image-input img-thumbnail" id="thumbnailImg" src=<%=`images/${blog.thumbnailImg}`%> alt="your image" />
+
+    
+    <div id="content" class="container"></div>
+    <br><br><br>
+    <button onclick="addBlock()" type="button" id="AddBlockButton">Start Editing</button>
+
+    <br><br><br>
+    <button type="submit" value="cancel" class="btn btn-danger">Cancel</button>
+    <button type="submit" value="upload" class="btn btn-primary">Upload</button>
     
     <button>Submit</button>
 </form>
+
+<script>
+    function convertNameToId(name){
+        var result = name.replace('[', '_')
+        result = result.replace(']', '_')
+
+        return result
+    }
+
+    function readURL(input) {
+        console.log(input.name)
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $(`#${convertNameToId(input.name)}`).attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    var imageIdCount = 0
+    function getImageName(){
+        return `image${imageIdCount++}`
+    }
+
+    var videoIdCount = 0
+    function getVideoName(){
+        return `video[${videoIdCount++}]`
+    }
+
+    var headerNameIndex = 0
+    function getHeaderName(){
+        return `header[${headerNameIndex ++ }]`
+    }
+
+    var paragraphNameIndex = 0
+    function getParagraphName(){
+        return `paragraph[${paragraphNameIndex++}]`
+    }
+
+    var proceed = false
+    function addBlock(){
+        console.log(proceed)
+        if(!proceed){
+            proceed = confirm('Editing Will Lead To Deletion of Any of The Previous Content Uploaded. Do You Want To Proceed?')
+        }
+
+        if(proceed){
+            const content = document.createElement('div')
+            content.classList.add('content-block')
+            content.appendChild(document.createElement('hr'))
+
+            const header = document.createElement('input')
+            header.type = 'text'
+            header.name = getHeaderName()
+            header.placeholder = 'Add New Header'
+            header.classList.add('header', 'form-control')
+            content.appendChild(header)
+
+            const imageDiv = document.createElement('div')
+            imageDiv.classList.add('float-left')
+                const imageName = getImageName()
+                const imageInput = document.createElement('input')
+                imageInput.type = 'file'
+                imageInput.name = imageName
+                imageInput.classList.add('form-control-file')
+                imageInput.setAttribute('onchange', "readURL(this)")
+                const previewImage = document.createElement('img')
+                previewImage.classList.add('image-input', 'img-thumbnail')
+                previewImage.id = convertNameToId(imageName)
+                previewImage.src= 'http://placehold.it/180'
+                previewImage.alt='your image'
+                imageDiv.appendChild(imageInput)
+                imageDiv.appendChild(previewImage)
+            content.appendChild(imageDiv)
+
+            const textAreaDiv = document.createElement('div')
+            textAreaDiv.classList.add('float-right')
+                const paragraph = document.createElement('textarea')
+                paragraph.name = getParagraphName()
+                paragraph.classList.add('form-control', 'float-right')
+                paragraph.placeholder = 'Write Something'
+                paragraph.rows = 10
+                textAreaDiv.appendChild(paragraph)
+            content.appendChild(textAreaDiv)
+
+            document.getElementById('content').appendChild(content)
+
+            document.getElementById('AddBlockButton').innerHTML = 'Add Another Block'
+        }
+    }
+</script>
 
 <%-include('./partials/bottom.ejs')-%>
