@@ -1,0 +1,35 @@
+
+.display-image {
+    padding-bottom: 20px;
+    max-width: 400px;
+}
+
+.blog-content {
+    padding: 20px;
+    padding-left: 70px;
+    padding-right: 70px;
+    display: flex;
+    flex-direction: column;
+}
+
+@media only screen and (max-width: 690px) {
+    .display-image {
+        padding-bottom: 20px;
+    }
+
+    .blog-content{
+        padding: 10px !important;
+    }
+
+    .blog-content img {
+        float: none !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        width: 100%;
+        align-self: center;
+    }
+}
+
+@media only screen and (max-width: 425px) {
+    /*Small smartphones [325px -> 425px]*/
+}
